@@ -11,6 +11,11 @@ app.use(express.json());
 // import handleError
 const handleError = require("./shared/errors/handle");
 
+// import router
+const admin_route = require("./modules/admin/_api");
+
+// registered router
+app.use(admin_route);
 
 // registered Error
 app.use(handleError);
