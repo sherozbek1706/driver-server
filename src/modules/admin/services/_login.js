@@ -17,6 +17,8 @@ const login = async ({ body }) => {
     throw new ForbiddenError("Password xato kiritildi!");
   }
 
+  await db("admin").where({ username }).update({ active: true });
+
   const payload = {
     user: {
       id: existing.id,
