@@ -5,7 +5,9 @@ const config = require("../../../shared/config");
 
 const login = async ({ body }) => {
   const { username, password } = body;
-  const existing = await db("admin").where({ username }).first();
+  const existing = await db("admin")
+    .where({ username, is_deleted: false })
+    .first();
 
   if (!existing) {
     throw new NotFoundError("Username xato kiritildi!");
