@@ -10,6 +10,13 @@ const show = async ({ params, user, role }) => {
     throw new NotFoundError("Admin topilmadi!");
   }
 
+  if (existing.id != user.id) {
+    if (role != "super_admin") {
+      throw new ForbiddenError("Sizda bunday huquq yo'q!");
+    }
+  }
+
+  return existing;
 };
 
 module.exports = show;
