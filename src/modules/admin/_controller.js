@@ -1,5 +1,5 @@
 const express = require("express");
-const { login } = require("./services");
+const { login, add } = require("./services");
 
 /**
  *
@@ -16,4 +16,22 @@ const loginAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { loginAdmin };
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const addAdmin = async (req, res, next) => {
+  try {
+    const result = await add({
+      body: req.body,
+      image: `/files/admin/${req.file.filename}`,
+    });
+    res.status(201).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { loginAdmin, addAdmin };
