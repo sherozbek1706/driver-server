@@ -4,7 +4,12 @@ const jsonwebtoken = require("jsonwebtoken");
 const config = require("../../../shared/config");
 
 const login = async ({ body }) => {
+  const { username, password } = body;
+  const existing = await db("admin").where({ username }).first();
 
+  if (!existing) {
+    throw new NotFoundError("Username xato kiritildi!");
+  }
 
 
 
