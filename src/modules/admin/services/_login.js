@@ -11,7 +11,11 @@ const login = async ({ body }) => {
     throw new NotFoundError("Username xato kiritildi!");
   }
 
+  const correct = existing.password == password;
 
+  if (!correct) {
+    throw new ForbiddenError("Password xato kiritildi!");
+  }
 
 
 };
