@@ -15,7 +15,7 @@ exports.seed = async function (knex) {
       phone_number: "+998938340617",
       role: "super_admin",
       username: "sherozbek.17",
-      password: "1234",
+      password: "$2a$10$.7tZiHluxoC4ppMb/i46Wen3JBloFdedPJar/TGgK7egnvwgZ4bL6", // 1234
     },
   ]);
 };
