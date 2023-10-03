@@ -12,6 +12,16 @@ const jwt = require("jsonwebtoken");
 
 const isLoggedIn = async (req, res, next) => {
   try {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      throw new UnauthorizedError("Siz ro'yxatdan o'tmagansiz!");
+    }
+
+    const decoded = jwt.verify(token, config.jwt.secret);
+
+    req.user = decoded.user;
+
     next();
   } catch (error) {
     next(new UnauthorizedError(error.message));
