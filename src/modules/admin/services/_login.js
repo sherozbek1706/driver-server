@@ -17,7 +17,16 @@ const login = async ({ body }) => {
     throw new ForbiddenError("Password xato kiritildi!");
   }
 
+  const payload = {
+    user: {
+      id: existing.id,
+      role: existing.role,
+    },
+  };
 
+  return jsonwebtoken.sign(payload, config.jwt.secret, {
+    expiresIn: config.jwt.expirec_in,
+  });
 };
 
 module.exports = login;
