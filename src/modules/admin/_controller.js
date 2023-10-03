@@ -1,5 +1,5 @@
 const express = require("express");
-const { login, add } = require("./services");
+const { login, add, list } = require("./services");
 
 /**
  *
@@ -34,4 +34,19 @@ const addAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { loginAdmin, addAdmin };
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const listAdmin = async (req, res, next) => {
+  try {
+    const result = await list();
+    res.status(201).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { loginAdmin, addAdmin, listAdmin };
