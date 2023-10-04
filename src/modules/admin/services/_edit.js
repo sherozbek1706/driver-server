@@ -44,6 +44,11 @@ const edit = async ({ params, user, role, body, image }) => {
 
   admin = { username, phone_number, ...data, image };
 
+  if (role == "super_admin") {
+    let hashed_psw = await bcryptjs.hash(password, 10);
+    admin = { ...admin, role: admin_role, password: hashed_psw };
+    return db("admin").where({ id: params.id }).update(admin).returning("*");
+  }
 
   admin = { ...admin, role, password: existing.password };
   return db("admin").where({ id: params.id }).update(admin).returning("*");
