@@ -18,8 +18,15 @@ const mListCarModel = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mRemoveCarModel = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 
 router.post("/car-model", mAddCarModel, addCarModel);
 router.get("/car-model", mListCarModel, listCarModel);
+router.delete("/car-model/:id", mRemoveCarModel, removeCarModel);
 
 module.exports = router;
