@@ -8,6 +8,7 @@ const {
   unremove,
   edit,
   off_active,
+  list_active,
 } = require("./services");
 
 /**
@@ -176,6 +177,21 @@ const offActiveAdmin = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const listActiveAdmin = async (req, res, next) => {
+  try {
+    const result = await list_active();
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginAdmin,
   addAdmin,
@@ -185,4 +201,5 @@ module.exports = {
   unremoveAdmin,
   editAdmin,
   offActiveAdmin,
+  listActiveAdmin,
 };
