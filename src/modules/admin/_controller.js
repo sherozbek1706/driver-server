@@ -1,5 +1,5 @@
 const express = require("express");
-const { login, add, list, show, remove } = require("./services");
+const { login, add, list, show, remove, unremove } = require("./services");
 
 /**
  *
@@ -76,6 +76,7 @@ const showAdmin = async (req, res, next) => {
     next(error);
   }
 };
+
 /**
  *
  * @param {express.Request} req
@@ -91,4 +92,26 @@ const removeAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { loginAdmin, addAdmin, listAdmin, showAdmin, removeAdmin };
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const unremoveAdmin = async (req, res, next) => {
+  try {
+    const result = await unremove({ params: req.params, user: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  loginAdmin,
+  addAdmin,
+  listAdmin,
+  showAdmin,
+  removeAdmin,
+  unremoveAdmin,
+};
