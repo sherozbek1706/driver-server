@@ -14,4 +14,10 @@ const unremove = async ({ params, user }) => {
     throw new ForbiddenError("Super Admin o'zini qayta tiklashi mumkin emas!");
   }
 
+  return db("admin")
+    .where(params)
+    .update({ active: false, is_deleted: false })
+    .returning("*");
+};
+
 module.exports = unremove;
