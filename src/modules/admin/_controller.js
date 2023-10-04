@@ -1,5 +1,13 @@
 const express = require("express");
-const { login, add, list, show, remove, unremove } = require("./services");
+const {
+  login,
+  add,
+  list,
+  show,
+  remove,
+  unremove,
+  edit,
+} = require("./services");
 
 /**
  *
@@ -107,6 +115,38 @@ const unremoveAdmin = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const editAdmin = async (req, res, next) => {
+  try {
+    let result;
+    if (req.params.id == "me") {
+      result = await edit({
+        params: req.user,
+        user: req.user,
+        role: req.user.role,
+        body: req.body,
+        image: `/files/admin/${req.file.filename}`,
+      });
+    } else {
+      result = await edit({
+        params: req.params,
+        user: req.user,
+        role: req.user.role,
+        body: req.body,
+        image: `/files/admin/${req.file.filename}`,
+      });
+    }
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginAdmin,
   addAdmin,
@@ -114,4 +154,5 @@ module.exports = {
   showAdmin,
   removeAdmin,
   unremoveAdmin,
+  editAdmin,
 };
