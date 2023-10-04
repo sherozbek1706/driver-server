@@ -5,12 +5,20 @@ const isBlock = async (req, res, next) => {
   try {
     const user = req.user;
 
-    const active = await db("admin")
+    const block = await db("admin")
       .where({ id: user.id, is_deleted: false })
       .first();
 
-    if (!active) {
+    if (!block) {
       throw new ForbiddenError(`Ushbu admin hozirda blok holatida!`);
+    }
+
+    const active = await db("admin")
+      .where({ id: user.id, is_deleted: false, active: true })
+      .first();
+
+    if (!active) {
+      throw new ForbiddenError(`Ushbu admin hozirda active holatida emas!`);
     }
 
     next();
