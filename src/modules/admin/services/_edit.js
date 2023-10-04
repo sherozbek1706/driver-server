@@ -36,6 +36,12 @@ const edit = async ({ params, user, role, body, image }) => {
     throw new BadRequestError("Username oldin ro'yxatdan o'tgan!");
   }
 
+  existed = await db("admin").where({ phone_number }).first();
+
+  if (existed && existed.phone_number != existing.phone_number) {
+    throw new BadRequestError("Telefon raqam oldin ro'yxatdan o'tgan!");
+  }
+
 };
 
 module.exports = edit;
