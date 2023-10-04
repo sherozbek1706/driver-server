@@ -8,19 +8,41 @@ const {
 } = require("./_controller");
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { admin_img_upload } = require("../../shared/upload");
+const { isBlock } = require("./middleware");
 
 const router = require("express").Router();
 
 const mLoginAdmin = [admin_img_upload];
-const mAddAdmin = [admin_img_upload, isLoggedIn, hasRole(["super_admin"])];
-const mListAdmin = [admin_img_upload, isLoggedIn, hasRole(["super_admin"])];
+const mAddAdmin = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["super_admin"]),
+];
+const mListAdmin = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["super_admin"]),
+];
 const mShowAdmin = [
   admin_img_upload,
   isLoggedIn,
+  isBlock,
   hasRole(["super_admin", "admin"]),
 ];
-const mRemoveAdmin = [admin_img_upload, isLoggedIn, hasRole(["super_admin"])];
-const mUnremoveAdmin = [admin_img_upload, isLoggedIn, hasRole(["super_admin"])];
+const mRemoveAdmin = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["super_admin"]),
+];
+const mUnremoveAdmin = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["super_admin"]),
+];
 
 router.post("/admin/login", mLoginAdmin, loginAdmin);
 router.post("/admin", mAddAdmin, addAdmin);
