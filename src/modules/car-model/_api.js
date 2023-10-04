@@ -1,4 +1,9 @@
-const { addCarModel, listCarModel, removeCarModel } = require("./_controller");
+const {
+  addCarModel,
+  listCarModel,
+  removeCarModel,
+  editCarModel,
+} = require("./_controller");
 
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { admin_img_upload } = require("../../shared/upload");
@@ -24,9 +29,16 @@ const mRemoveCarModel = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mEditCarModel = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 
 router.post("/car-model", mAddCarModel, addCarModel);
 router.get("/car-model", mListCarModel, listCarModel);
 router.delete("/car-model/:id", mRemoveCarModel, removeCarModel);
+router.put("/car-model/:id", mEditCarModel, editCarModel);
 
 module.exports = router;
