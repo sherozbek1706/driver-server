@@ -21,6 +21,21 @@ const edit = async ({ params, user, role, body, image }) => {
     }
   }
 
+  // admin yab boraman birdaniga
+  let admin = {};
+
+  // agar oldin ro'yxatdan o'tgan bo'lsa elon qilaman.
+  let existed;
+
+  // tekshirib olish uchun ishlatdim.
+  const { phone_number, username, role: admin_role, password, ...data } = body;
+
+  existed = await db("admin").where({ username }).first();
+
+  if (existed && existed.username != existing.username) {
+    throw new BadRequestError("Username oldin ro'yxatdan o'tgan!");
+  }
+
 };
 
 module.exports = edit;
