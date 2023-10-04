@@ -12,7 +12,14 @@ const mAddCarModel = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mListCarModel = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 
 router.post("/car-model", mAddCarModel, addCarModel);
+router.get("/car-model", mListCarModel, listCarModel);
 
 module.exports = router;
