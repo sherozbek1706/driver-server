@@ -14,4 +14,10 @@ const remove = async ({ params, user }) => {
     throw new ForbiddenError("Super Admin o'zini o'chirishi mumkin emas!");
   }
 
+  return db("admin")
+    .where(params)
+    .update({ active: false, is_deleted: true })
+    .returning("*");
+};
+
 module.exports = remove;
