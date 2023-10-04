@@ -10,4 +10,8 @@ const remove = async ({ params, user }) => {
     throw new NotFoundError("Admin topilmadi!");
   }
 
+  if (existing.id == user.id) {
+    throw new ForbiddenError("Super Admin o'zini o'chirishi mumkin emas!");
+  }
+
 module.exports = remove;
