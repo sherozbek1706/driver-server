@@ -7,6 +7,7 @@ const {
   remove,
   unremove,
   edit,
+  off_active,
 } = require("./services");
 
 /**
@@ -147,6 +148,34 @@ const editAdmin = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const offActiveAdmin = async (req, res, next) => {
+  try {
+    let result;
+    if (req.params.id == "me") {
+      result = await off_active({
+        params: req.user,
+        user: req.user,
+        role: req.user.role,
+      });
+    } else {
+      result = await off_active({
+        params: req.params,
+        user: req.user,
+        role: req.user.role,
+      });
+    }
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginAdmin,
   addAdmin,
@@ -155,4 +184,5 @@ module.exports = {
   removeAdmin,
   unremoveAdmin,
   editAdmin,
+  offActiveAdmin,
 };
