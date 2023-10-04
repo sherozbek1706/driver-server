@@ -15,6 +15,12 @@ const edit = async ({ params, user, role, body, image }) => {
     throw new NotFoundError("Admin topilmadi!");
   }
 
+  if (existing.id != user.id) {
+    if (role != "super_admin") {
+      throw new ForbiddenError("Sizda bunday huquq yo'q!");
+    }
+  }
+
 };
 
 module.exports = edit;
