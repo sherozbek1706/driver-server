@@ -42,6 +42,11 @@ const edit = async ({ params, user, role, body, image }) => {
     throw new BadRequestError("Telefon raqam oldin ro'yxatdan o'tgan!");
   }
 
+  admin = { username, phone_number, ...data, image };
+
+
+  admin = { ...admin, role, password: existing.password };
+  return db("admin").where({ id: params.id }).update(admin).returning("*");
 };
 
 module.exports = edit;
