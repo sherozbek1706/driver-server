@@ -6,6 +6,7 @@ const {
   removeAdmin,
   unremoveAdmin,
   editAdmin,
+  offActiveAdmin,
 } = require("./_controller");
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { admin_img_upload } = require("../../shared/upload");
@@ -50,6 +51,12 @@ const mEditAdmin = [
   isBlock,
   hasRole(["super_admin", "admin"]),
 ];
+const mOffActiveAdmin = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["super_admin", "admin"]),
+];
 
 router.post("/admin/login", mLoginAdmin, loginAdmin);
 router.post("/admin", mAddAdmin, addAdmin);
@@ -58,5 +65,6 @@ router.get("/admin/:id", mShowAdmin, showAdmin);
 router.delete("/admin/:id", mRemoveAdmin, removeAdmin);
 router.delete("/admin/un/:id", mUnremoveAdmin, unremoveAdmin);
 router.put("/admin/:id", mEditAdmin, editAdmin);
+router.patch("/admin/active/:id", mOffActiveAdmin, offActiveAdmin);
 
 module.exports = router;
