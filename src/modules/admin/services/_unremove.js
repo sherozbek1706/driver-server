@@ -10,4 +10,8 @@ const unremove = async ({ params, user }) => {
     throw new NotFoundError("Admin topilmadi!");
   }
 
+  if (existing.id == user.id) {
+    throw new ForbiddenError("Super Admin o'zini qayta tiklashi mumkin emas!");
+  }
+
 module.exports = unremove;
