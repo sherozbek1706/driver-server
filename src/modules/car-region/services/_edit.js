@@ -13,6 +13,8 @@ const edit = async ({ params, body }) => {
   if (existed) {
     throw new BadRequestError("Bunday raqam oldin ro'yxatdan o'tgan!");
   }
+
+  return db("car_region").where({ id: params.id }).update(body).returning("*");
 };
 
 module.exports = edit;
