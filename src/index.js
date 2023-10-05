@@ -15,11 +15,13 @@ const handleError = require("./shared/errors/handle");
 const admin_route = require("./modules/admin/_api");
 const carmodel_route = require("./modules/car-model/_api");
 const carregion_route = require("./modules/car-region/_api");
+const car_route = require("./modules/car/_api");
 
 // registered router
 app.use(admin_route);
 app.use(carmodel_route);
 app.use(carregion_route);
+app.use(car_route);
 
 // registered Error
 app.use(handleError);
