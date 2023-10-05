@@ -11,6 +11,12 @@ const add = async ({ body }) => {
     throw new NotFoundError("Model topilmadi!");
   }
 
+  existing = await db("car_region").where({ id: region_id }).first();
+
+  if (!existing) {
+    throw new NotFoundError("Viloyat topilmadi!");
+  }
+
 };
 
 module.exports = add;
