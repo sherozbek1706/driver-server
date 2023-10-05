@@ -46,7 +46,24 @@ const removeCarRegion = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const editCarRegion = async (req, res, next) => {
+  try {
+    const result = await edit({ body: req.body, params: req.params });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addCarRegion,
   listCarRegion,
+  removeCarRegion,
+  editCarRegion,
 };
