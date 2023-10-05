@@ -1,9 +1,15 @@
 const db = require("../../../db");
-const { ForbiddenError } = require("../../../shared/errors");
+const { ForbiddenError, NotFoundError } = require("../../../shared/errors");
 
 const isBlock = async (req, res, next) => {
   try {
     const user = req.user;
+
+    const isnot = await db("admin").where({ id: user.id }).first();
+
+    if (!isnot) {
+      throw new NotFoundError(`Login qilgan admin topilmadi!`);
+    }
 
     const block = await db("admin")
       .where({ id: user.id, is_deleted: false })
