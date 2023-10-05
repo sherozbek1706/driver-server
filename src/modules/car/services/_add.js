@@ -23,6 +23,7 @@ const add = async ({ body }) => {
     throw new BadRequestError("Bunday raqam oldin ro'yxatdan o'tgan!");
   }
 
+  return db("car").insert(body).returning("*");
 };
 
 module.exports = add;
