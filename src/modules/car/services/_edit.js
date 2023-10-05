@@ -23,5 +23,12 @@ const edit = async ({ params, body }) => {
     throw new NotFoundError("Viloyat topilmadi!");
   }
 
+  let existed = await db("car").where({ number }).first();
+
+  if (existed && exist.number != number) {
+    throw new BadRequestError("Bunday raqam oldin ro'yxatdan o'tgan!");
+  }
+
+  return db("car").where({ id: params.id }).update(body).returning("*");
 };
 module.exports = edit;
