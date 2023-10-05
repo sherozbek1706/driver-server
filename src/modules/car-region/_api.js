@@ -1,4 +1,8 @@
-const { addCarRegion, listCarRegion } = require("./_controller");
+const {
+  addCarRegion,
+  listCarRegion,
+  removeCarRegion,
+} = require("./_controller");
 
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { admin_img_upload } = require("../../shared/upload");
@@ -18,8 +22,15 @@ const mListCarRegion = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mRemoveCarRegion = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 
 router.post("/car-region", mAddCarRegion, addCarRegion);
 router.get("/car-region", mListCarRegion, listCarRegion);
+router.delete("/car-region/:id", mRemoveCarRegion, removeCarRegion);
 
 module.exports = router;
