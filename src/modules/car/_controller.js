@@ -1,5 +1,5 @@
 const express = require("express");
-const { add, list, edit } = require("./services");
+const { add, list, edit, remove } = require("./services");
 
 /**
  *
@@ -46,8 +46,24 @@ const editCar = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const removeCar = async (req, res, next) => {
+  try {
+    const result = await remove({ params: req.params });
+    res.status("200").json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addCar,
   listCar,
   editCar,
+  removeCar,
 };
