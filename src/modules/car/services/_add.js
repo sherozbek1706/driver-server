@@ -17,6 +17,12 @@ const add = async ({ body }) => {
     throw new NotFoundError("Viloyat topilmadi!");
   }
 
+  let existed = await db("car").where({ number }).first();
+
+  if (existed) {
+    throw new BadRequestError("Bunday raqam oldin ro'yxatdan o'tgan!");
+  }
+
 };
 
 module.exports = add;
