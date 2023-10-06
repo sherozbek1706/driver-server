@@ -6,6 +6,12 @@ const isActive = async (req, res, next) => {
     const user = req.user;
 
     if (user.role == "driver") {
+      const isnot = await db("driver").where({ id: user.id }).first();
+
+      if (!isnot) {
+        throw new NotFoundError(`Login qilgan haydovchi topilmadi!`);
+      }
+
     }
 
     next();
