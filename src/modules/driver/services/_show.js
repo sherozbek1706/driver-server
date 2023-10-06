@@ -10,6 +10,12 @@ const show = async ({ params, user, role }) => {
     throw new NotFoundError("Haydovchi topilmadi!");
   }
 
+  if (existing.id != user.id) {
+    if (role == "driver") {
+      throw new ForbiddenError("Sizda bunday huquq yo'q!");
+    }
+  }
+
   return existing;
 };
 
