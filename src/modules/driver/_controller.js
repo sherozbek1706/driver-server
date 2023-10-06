@@ -51,6 +51,12 @@ const showDriver = async (req, res, next) => {
         role: req.user.role,
       });
     } else {
+      result = await show({
+        params: req.params,
+        user: req.user,
+        role: req.user.role,
+      });
+    }
     res.status(200).json({ data: result });
   } catch (error) {
     next(error);
