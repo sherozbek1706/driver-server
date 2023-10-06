@@ -3,6 +3,7 @@ const {
   listDriver,
   showDriver,
   loginDriver,
+  removeDriver,
 } = require("./_controller");
 
 const { hasRole, isLoggedIn } = require("../../shared/auth");
@@ -31,10 +32,17 @@ const mShowDriver = [
   isActive,
   hasRole(["admin", "super_admin", "driver"]),
 ];
+const mRemoveDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 
 router.post("/driver/login", mLoginDriver, loginDriver);
 router.post("/driver/add", mAddDriver, addDriver);
 router.get("/driver", mListDriver, listDriver);
 router.get("/driver/:id", mShowDriver, showDriver);
+router.delete("/driver/:id", mRemoveDriver, removeDriver);
 
 module.exports = router;
