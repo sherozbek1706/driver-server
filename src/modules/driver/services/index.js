@@ -4,6 +4,7 @@ const show = require("./_show");
 const login = require("./_login");
 const remove = require("./_remove");
 const unremove = require("./_unremove");
+const onActive = require("./_on-active");
 
 module.exports = {
   add,
@@ -12,4 +13,5 @@ module.exports = {
   login,
   remove,
   unremove,
+  onActive,
 };
