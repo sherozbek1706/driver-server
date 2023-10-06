@@ -12,6 +12,14 @@ const isActive = async (req, res, next) => {
         throw new NotFoundError(`Login qilgan haydovchi topilmadi!`);
       }
 
+      const block = await db("driver")
+        .where({ id: user.id, is_deleted: false })
+        .first();
+
+      if (!block) {
+        throw new ForbiddenError(`Ushbu haydovchi hozirda blok holatida!`);
+      }
+
     }
 
     next();
