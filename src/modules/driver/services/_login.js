@@ -29,6 +29,9 @@ const login = async ({ body }) => {
     },
   };
 
+  return jsonwebtoken.sign(payload, config.jwt.secret, {
+    expiresIn: config.jwt.expirec_in,
+  });
 };
 
 module.exports = login;
