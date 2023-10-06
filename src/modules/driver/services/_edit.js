@@ -51,6 +51,13 @@ const edit = async ({ params, user, body, image }) => {
       throw new NotFoundError("Moshina topilmadi!");
     }
 
+    let hashed_psw = await bcryptjs.hash(password, 10);
+    driver = { ...driver, car_id, password: hashed_psw };
+    return db("driver").where({ id: params.id }).update(driver).returning("*");
+  }
+
+  driver = { ...driver, password: existing.password };
+  return db("driver").where({ id: params.id }).update(driver).returning("*");
 };
 
 module.exports = edit;
