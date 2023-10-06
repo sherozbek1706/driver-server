@@ -1,5 +1,13 @@
 const express = require("express");
-const { add, list, show, login, remove, unremove } = require("./services");
+const {
+  add,
+  list,
+  show,
+  login,
+  remove,
+  unremove,
+  onActive,
+} = require("./services");
 
 /**
  *
@@ -108,6 +116,21 @@ const unremoveDriver = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const onActiveDriver = async (req, res, next) => {
+  try {
+    const result = await onActive({ params: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addDriver,
   listDriver,
@@ -115,4 +138,5 @@ module.exports = {
   loginDriver,
   removeDriver,
   unremoveDriver,
+  onActiveDriver,
 };
