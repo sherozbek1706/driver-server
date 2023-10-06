@@ -1,5 +1,15 @@
 const express = require("express");
-const { add, list, show, login } = require("./services");
+const {
+  add,
+  list,
+  show,
+  login,
+  remove,
+  unremove,
+  onActive,
+  offActive,
+  listActive,
+} = require("./services");
 
 /**
  *
@@ -78,9 +88,89 @@ const loginDriver = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const removeDriver = async (req, res, next) => {
+  try {
+    const result = await remove({ params: req.params });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const unremoveDriver = async (req, res, next) => {
+  try {
+    const result = await unremove({ params: req.params });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const onActiveDriver = async (req, res, next) => {
+  try {
+    const result = await onActive({ params: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const offActiveDriver = async (req, res, next) => {
+  try {
+    const result = await offActive({ params: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const listActiveDriver = async (req, res, next) => {
+  try {
+    const result = await listActive();
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addDriver,
   listDriver,
   showDriver,
   loginDriver,
+  removeDriver,
+  unremoveDriver,
+  onActiveDriver,
+  offActiveDriver,
+  listActiveDriver,
 };

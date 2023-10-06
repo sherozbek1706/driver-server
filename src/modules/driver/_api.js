@@ -3,10 +3,16 @@ const {
   listDriver,
   showDriver,
   loginDriver,
+  removeDriver,
+  unremoveDriver,
+  onActiveDriver,
+  offActiveDriver,
+  listActiveDriver,
 } = require("./_controller");
 
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { driver_img_upload } = require("../../shared/upload");
+const { isActive } = require("./middleware");
 const { isBlock } = require("../admin/middleware");
 
 const router = require("express").Router();
@@ -27,13 +33,47 @@ const mListDriver = [
 const mShowDriver = [
   driver_img_upload,
   isLoggedIn,
+  isActive,
   hasRole(["admin", "super_admin", "driver"]),
-  // isBlock,
+];
+const mRemoveDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
+const mUnemoveDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
+const mOnActiveDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  hasRole(["admin", "super_admin", "driver"]),
+];
+const mOffActiveDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  isActive,
+  hasRole(["admin", "super_admin", "driver"]),
+];
+const mListActiveDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
 ];
 
 router.post("/driver/login", mLoginDriver, loginDriver);
 router.post("/driver/add", mAddDriver, addDriver);
 router.get("/driver", mListDriver, listDriver);
+router.get("/driver/active", mListActiveDriver, listActiveDriver);
 router.get("/driver/:id", mShowDriver, showDriver);
+router.delete("/driver/:id", mRemoveDriver, removeDriver);
+router.delete("/driver/un/:id", mUnemoveDriver, unremoveDriver);
+router.patch("/driver/active/on", mOnActiveDriver, onActiveDriver);
+router.patch("/driver/active/off", mOffActiveDriver, offActiveDriver);
 
 module.exports = router;
