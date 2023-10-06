@@ -3,6 +3,7 @@ const list = require("./_list");
 const show = require("./_show");
 const login = require("./_login");
 const remove = require("./_remove");
+const unremove = require("./_unremove");
 
 module.exports = {
   add,
@@ -10,4 +11,5 @@ module.exports = {
   show,
   login,
   remove,
+  unremove,
 };
