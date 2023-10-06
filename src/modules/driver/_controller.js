@@ -1,5 +1,5 @@
 const express = require("express");
-const { add, list, show, login } = require("./services");
+const { add, list, show, login, remove } = require("./services");
 
 /**
  *
@@ -78,9 +78,25 @@ const loginDriver = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const removeDriver = async (req, res, next) => {
+  try {
+    const result = await remove({ params: req.params });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addDriver,
   listDriver,
   showDriver,
   loginDriver,
+  removeDriver,
 };
