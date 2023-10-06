@@ -9,6 +9,7 @@ const {
   onActive,
   offActive,
   listActive,
+  edit,
 } = require("./services");
 
 /**
@@ -163,6 +164,36 @@ const listActiveDriver = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const editDriver = async (req, res, next) => {
+  try {
+    let result;
+    if (req.params.id == "me") {
+      result = await edit({
+        params: req.user,
+        user: req.user,
+        body: req.body,
+        image: `/files/driver/${req.file.filename}`,
+      });
+    } else {
+      result = await edit({
+        params: req.params,
+        user: req.user,
+        body: req.body,
+        image: `/files/driver/${req.file.filename}`,
+      });
+    }
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addDriver,
   listDriver,
@@ -173,4 +204,5 @@ module.exports = {
   onActiveDriver,
   offActiveDriver,
   listActiveDriver,
+  editDriver,
 };
