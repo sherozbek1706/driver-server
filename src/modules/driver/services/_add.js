@@ -13,6 +13,13 @@ const add = async ({ body, image, user }) => {
     throw new BadRequestError("Username oldin ro'yxatdan o'tgan!");
   }
 
+  const hashed_psw = await bcryptjs.hash(password, 10);
+
+  const admin_id = user.id;
+
+  return db("driver")
+    .insert({ ...body, image, password: hashed_psw, admin_id })
+    .returning("*");
 };
 
 module.exports = add;
