@@ -7,6 +7,7 @@ const {
 
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { driver_img_upload } = require("../../shared/upload");
+const { isActive } = require("./middleware");
 const { isBlock } = require("../admin/middleware");
 
 const router = require("express").Router();
@@ -27,8 +28,8 @@ const mListDriver = [
 const mShowDriver = [
   driver_img_upload,
   isLoggedIn,
+  isActive,
   hasRole(["admin", "super_admin", "driver"]),
-  // isBlock,
 ];
 
 router.post("/driver/login", mLoginDriver, loginDriver);

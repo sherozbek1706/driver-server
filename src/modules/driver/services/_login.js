@@ -20,7 +20,9 @@ const login = async ({ body }) => {
     throw new ForbiddenError("Parol xato kiritildi!");
   }
 
-  await db("driver").where({ username }).update({ active: true });
+  await db("driver")
+    .where({ username, is_deleted: false })
+    .update({ active: true });
 
   const payload = {
     user: {
