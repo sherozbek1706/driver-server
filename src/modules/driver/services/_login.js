@@ -13,6 +13,13 @@ const login = async ({ body }) => {
   if (!existing) {
     throw new NotFoundError("Username xato kiritildi!");
   }
+
+  const correct = await bcryptjs.compare(password, existing.password);
+
+  if (!correct) {
+    throw new ForbiddenError("Parol xato kiritildi!");
+  }
+
 };
 
 module.exports = login;
