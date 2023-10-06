@@ -7,6 +7,7 @@ const unremove = require("./_unremove");
 const onActive = require("./_on-active");
 const offActive = require("./_off-active");
 const listActive = require("./_list-active");
+const edit = require("./_edit");
 
 module.exports = {
   add,
@@ -18,4 +19,5 @@ module.exports = {
   onActive,
   offActive,
   listActive,
+  edit,
 };
