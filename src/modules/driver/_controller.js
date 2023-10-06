@@ -8,6 +8,7 @@ const {
   unremove,
   onActive,
   offActive,
+  listActive,
 } = require("./services");
 
 /**
@@ -147,6 +148,21 @@ const offActiveDriver = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const listActiveDriver = async (req, res, next) => {
+  try {
+    const result = await listActive();
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addDriver,
   listDriver,
@@ -156,4 +172,5 @@ module.exports = {
   unremoveDriver,
   onActiveDriver,
   offActiveDriver,
+  listActiveDriver,
 };
