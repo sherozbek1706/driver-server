@@ -13,6 +13,12 @@ const add = async ({ body, image, user }) => {
     throw new BadRequestError("Username oldin ro'yxatdan o'tgan!");
   }
 
+  existing = await db("driver").where({ phone_number }).first();
+
+  if (existing) {
+    throw new BadRequestError("Telefon raqam oldin ro'yxatdan o'tgan!");
+  }
+ 
   const hashed_psw = await bcryptjs.hash(password, 10);
 
   const admin_id = user.id;
