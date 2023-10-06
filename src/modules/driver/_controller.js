@@ -44,6 +44,13 @@ const listDriver = async (req, res, next) => {
 const showDriver = async (req, res, next) => {
   try {
     let result;
+    if (req.params.id == "me") {
+      result = await show({
+        params: req.user,
+        user: req.user,
+        role: req.user.role,
+      });
+    } else {
     res.status(200).json({ data: result });
   } catch (error) {
     next(error);
