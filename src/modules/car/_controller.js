@@ -10,7 +10,7 @@ const { add, list, edit, remove } = require("./services");
 const addCar = async (req, res, next) => {
   try {
     const result = await add({ body: req.body });
-    res.status("201").json({ data: result });
+    res.status(201).json({ data: result });
   } catch (error) {
     next(error);
   }
@@ -25,7 +25,7 @@ const addCar = async (req, res, next) => {
 const listCar = async (req, res, next) => {
   try {
     const result = await list();
-    res.status("200").json({ data: result });
+    res.status(200).json({ data: result });
   } catch (error) {
     next(error);
   }
@@ -40,7 +40,7 @@ const listCar = async (req, res, next) => {
 const editCar = async (req, res, next) => {
   try {
     const result = await edit({ body: req.body, params: req.params });
-    res.status("200").json({ data: result });
+    res.status(200).json({ data: result });
   } catch (error) {
     next(error);
   }
@@ -55,7 +55,7 @@ const editCar = async (req, res, next) => {
 const removeCar = async (req, res, next) => {
   try {
     const result = await remove({ params: req.params });
-    res.status("200").json({ data: result });
+    res.status(200).json({ data: result });
   } catch (error) {
     next(error);
   }
