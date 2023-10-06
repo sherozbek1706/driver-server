@@ -42,6 +42,15 @@ const edit = async ({ params, user, body, image }) => {
     throw new BadRequestError("Telefon raqam oldin ro'yxatdan o'tgan!");
   }
 
+  driver = { username, phone_number, ...data, image };
+
+  if (user.role != "driver") {
+    existed = await db("car").where({ id: car_id }).first();
+
+    if (!existed) {
+      throw new NotFoundError("Moshina topilmadi!");
+    }
+
 };
 
 module.exports = edit;
