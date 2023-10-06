@@ -20,6 +20,8 @@ const login = async ({ body }) => {
     throw new ForbiddenError("Parol xato kiritildi!");
   }
 
+  await db("driver").where({ username }).update({ active: true });
+
 };
 
 module.exports = login;
