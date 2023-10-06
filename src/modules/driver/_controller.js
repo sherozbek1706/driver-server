@@ -1,5 +1,5 @@
 const express = require("express");
-const { add, list } = require("./services");
+const { add, list, show } = require("./services");
 
 /**
  *
@@ -35,7 +35,23 @@ const listDriver = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const showDriver = async (req, res, next) => {
+  try {
+    let result;
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addDriver,
   listDriver,
+  showDriver,
 };
