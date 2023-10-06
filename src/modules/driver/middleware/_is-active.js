@@ -20,6 +20,15 @@ const isActive = async (req, res, next) => {
         throw new ForbiddenError(`Ushbu haydovchi hozirda blok holatida!`);
       }
 
+      const active = await db("driver")
+        .where({ id: user.id, is_deleted: false, active: true })
+        .first();
+
+      if (!active) {
+        throw new ForbiddenError(
+          `Ushbu haydovchi hozirda active holatida emas!`
+        );
+      }
     }
 
     next();
