@@ -16,12 +16,14 @@ const admin_route = require("./modules/admin/_api");
 const carmodel_route = require("./modules/car-model/_api");
 const carregion_route = require("./modules/car-region/_api");
 const car_route = require("./modules/car/_api");
+const driver_route = require("./modules/driver/_api");
 
 // registered router
 app.use(admin_route);
 app.use(carmodel_route);
 app.use(carregion_route);
 app.use(car_route);
+app.use(driver_route);
 
 // registered Error
 app.use(handleError);
