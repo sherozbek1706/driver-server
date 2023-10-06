@@ -22,6 +22,13 @@ const login = async ({ body }) => {
 
   await db("driver").where({ username }).update({ active: true });
 
+  const payload = {
+    user: {
+      id: existing.id,
+      role: "driver",
+    },
+  };
+
 };
 
 module.exports = login;
