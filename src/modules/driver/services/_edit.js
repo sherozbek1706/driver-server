@@ -15,6 +15,12 @@ const edit = async ({ params, user, body, image }) => {
     throw new NotFoundError("Haydovchi topilmadi!");
   }
 
+  if (existing.id != user.id) {
+    if (user.role == "driver") {
+      throw new ForbiddenError("Sizda bunday huquq yo'q!");
+    }
+  }
+
 };
 
 module.exports = edit;
