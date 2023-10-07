@@ -1,6 +1,7 @@
 const {
   addAddress,
   listAddress,
+  removeAddress,
 } = require("./_controller");
 
 const { hasRole, isLoggedIn } = require("../../shared/auth");
@@ -21,7 +22,14 @@ const mListAddress = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mRemoveAddress = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 router.post("/address", mAddAddress, addAddress);
 router.get("/address", mListAddress, listAddress);
+router.delete("/address/:id", mRemoveAddress, removeAddress);
 
 module.exports = router;
