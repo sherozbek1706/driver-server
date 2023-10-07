@@ -18,6 +18,7 @@ const carregion_route = require("./modules/car-region/_api");
 const car_route = require("./modules/car/_api");
 const driver_route = require("./modules/driver/_api");
 const address_route = require("./modules/address/_api");
+const order_route = require("./modules/order/_api");
 
 // registered router
 app.use(admin_route);
@@ -26,6 +27,7 @@ app.use(carregion_route);
 app.use(car_route);
 app.use(driver_route);
 app.use(address_route);
+app.use(order_route);
 
 // registered Error
 app.use(handleError);
