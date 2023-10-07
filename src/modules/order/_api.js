@@ -12,5 +12,14 @@ const mAddOrder = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mListOrder = [
+  driver_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin", "driver"]),
+];
+
 router.post("/order", mAddOrder, addOrder);
+router.get("/order", mListOrder, listOrder);
+
 module.exports = router;
