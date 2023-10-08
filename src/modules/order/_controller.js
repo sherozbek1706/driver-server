@@ -1,5 +1,5 @@
 const express = require("express");
-const { add, list, opened } = require("./services");
+const { add, list, opened, closed } = require("./services");
 
 /**
  *
@@ -46,8 +46,24 @@ const openedOrder = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const closedOrder = async (req, res, next) => {
+  try {
+    const result = await closed();
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addOrder,
   listOrder,
   openedOrder,
+  closedOrder,
 };
