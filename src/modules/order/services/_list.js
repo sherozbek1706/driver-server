@@ -8,8 +8,9 @@ const list = async () => {
       "order.id as id",
       "order.phone_number",
       "order.created_at",
-      "order.open",
+      "order.status",
       "order.address_id",
+      "order.district",
       "address.address",
       "admin.id as admin_id",
       "admin.first_name as admin_name"
