@@ -17,7 +17,7 @@ const mListOrder = [
   isLoggedIn,
   isBlock,
   isActive,
-  hasRole(["admin", "super_admin", "driver"]),
+  hasRole(["admin", "super_admin"]),
 ];
 
 router.post("/order", mAddOrder, addOrder);
