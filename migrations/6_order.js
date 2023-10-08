@@ -9,10 +9,16 @@ exports.up = function (knex) {
       .integer("address_id")
       .references("id")
       .inTable("address")
-      .notNullable();
-    table.string("phone_number").unique().notNullable();
+      .onDelete("SET NULL")
+      .onUpdate("CASCADE");
+    table.string("phone_number").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
-    table.integer("admin_id").references("id").inTable("admin").notNullable();
+    table
+      .integer("admin_id")
+      .references("id")
+      .inTable("admin")
+      .onDelete("SET NULL")
+      .onUpdate("CASCADE");
     table.boolean("open").defaultTo(true);
   });
 };
