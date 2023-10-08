@@ -2,7 +2,7 @@ const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { driver_img_upload } = require("../../shared/upload");
 const { isActive } = require("../driver/middleware");
 const { isBlock } = require("../admin/middleware");
-const { addOrder, listOrder } = require("./_controller");
+const { addOrder, listOrder, openedOrder } = require("./_controller");
 
 const router = require("express").Router();
 
@@ -19,8 +19,16 @@ const mListOrder = [
   isActive,
   hasRole(["admin", "super_admin"]),
 ];
+const mOpenedOrder = [
+  driver_img_upload,
+  isLoggedIn,
+  isBlock,
+  isActive,
+  hasRole(["admin", "super_admin", "driver"]),
+];
 
 router.post("/order", mAddOrder, addOrder);
 router.get("/order", mListOrder, listOrder);
+router.get("/order/open", mOpenedOrder, openedOrder);
 
 module.exports = router;
