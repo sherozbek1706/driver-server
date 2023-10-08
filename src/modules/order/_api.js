@@ -16,6 +16,7 @@ const mListOrder = [
   driver_img_upload,
   isLoggedIn,
   isBlock,
+  isActive,
   hasRole(["admin", "super_admin", "driver"]),
 ];
 
