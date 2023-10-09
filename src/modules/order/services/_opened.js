@@ -1,7 +1,8 @@
 const db = require("../../../db");
 
-const list = async () => {
+const opened = async () => {
   return db("order")
+    .where({ status: "open" })
     .leftJoin("admin", "order.admin_id", "admin.id")
     .leftJoin("address", "order.address_id", "address.id")
     .select(
@@ -16,4 +17,4 @@ const list = async () => {
       "admin.first_name as admin_name"
     );
 };
-module.exports = list;
+module.exports = opened;
