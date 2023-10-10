@@ -24,6 +24,14 @@ const get = async ({ params, user }) => {
 
   await db("order").where({ id: params.id }).update({ status: "progress" });
 
+  const driverorder = {
+    driver_id: user.id,
+    order_id: existing.id,
+    time: new Date().toLocaleDateString(),
+    // time: Date(Date.now()).toString(),
+  };
+
+  return db("driver-order").insert(driverorder).returning("*");
 };
 
 module.exports = get;
