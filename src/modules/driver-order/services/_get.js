@@ -10,6 +10,9 @@ const get = async ({ params, user }) => {
     throw new NotFoundError("Zakaz topilmadi");
   }
 
+  const driver_order = await db("driver-order").where({ driver_id: user.id });
+  const orders = await db("order");
+
 };
 
 module.exports = get;
