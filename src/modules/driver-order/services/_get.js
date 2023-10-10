@@ -22,6 +22,8 @@ const get = async ({ params, user }) => {
     }
   });
 
+  await db("order").where({ id: params.id }).update({ status: "progress" });
+
 };
 
 module.exports = get;
