@@ -14,6 +14,14 @@ const handover = async ({ params, user }) => {
     throw new NotFoundError("Bunday zakazni siz qabul qilmagansiz.");
   }
 
+  const existed = await db("order")
+    .where({ id: params.id, status: "close" })
+    .first();
+
+  if (existed) {
+    throw new BadRequestError("Siz allaqachon bu zakazni bajarib bo'lgangiz.");
+  }
+
 };
 
 module.exports = handover;
