@@ -1,6 +1,7 @@
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { admin_img_upload } = require("../../shared/upload");
 const { isActive } = require("../driver/middleware");
+const { isBlock } = require("../admin/middleware");
 const {
   getDriverOrder,
   listDriverOrder,
@@ -19,6 +20,7 @@ const mListDriverOrder = [
   admin_img_upload,
   isLoggedIn,
   isActive,
+  isBlock,
   hasRole(["super_admin", "admin", "driver"]),
 ];
 const mHandOverDriverOrder = [
