@@ -22,6 +22,9 @@ const handover = async ({ params, user }) => {
     throw new BadRequestError("Siz allaqachon bu zakazni bajarib bo'lgangiz.");
   }
 
+  await db("order").where({ id: params.id }).update({ status: "close" });
+
+  return { msg: "Muvvaffaqiyatli yakunladingiz." };
 };
 
 module.exports = handover;
