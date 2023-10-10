@@ -15,7 +15,14 @@ const mGetDriverOrder = [
   isActive,
   hasRole(["driver"]),
 ];
+const mListDriverOrder = [
+  admin_img_upload,
+  isLoggedIn,
+  isActive,
+  hasRole(["super_admin", "admin", "driver"]),
+];
 
 router.post("/driver-order/:id", mGetDriverOrder, getDriverOrder);
+router.get("/driver-order", mListDriverOrder, listDriverOrder);
 
 module.exports = router;
