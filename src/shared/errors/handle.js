@@ -4,6 +4,7 @@ const {
   BadRequestError,
   UnauthorizedError,
   ForbiddenError,
+  PaymentRequiredError,
 } = require(".");
 
 /**
@@ -20,6 +21,7 @@ module.exports = (err, req, res, next) => {
   else if (err instanceof UnauthorizedError) status = 401;
   else if (err instanceof ForbiddenError) status = 403;
   else if (err instanceof NotFoundError) status = 404;
+  else if (err instanceof PaymentRequiredError) status = 402;
 
   res.status(status).json({ error: err.message });
 };
