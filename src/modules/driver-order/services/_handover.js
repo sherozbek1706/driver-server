@@ -1,4 +1,5 @@
 const db = require("../../../db");
+const config = require("../../../shared/config");
 const {
   NotFoundError,
   ForbiddenError,
@@ -14,15 +15,27 @@ const handover = async ({ params, user }) => {
     throw new NotFoundError("Bunday zakazni siz qabul qilmagansiz.");
   }
 
+  const order = await db("order").where({ id: existing.order_id }).first();
+
+  let driver = await db("driver").where({ id: user.id }).first();
+
   const existed = await db("order")
-    .where({ id: params.id, status: "close" })
+    .where({ id: order.id, status: "close" })
     .first();
 
   if (existed) {
     throw new BadRequestError("Siz allaqachon bu zakazni bajarib bo'lgangiz.");
   }
 
-  await db("order").where({ id: params.id }).update({ status: "close" });
+  await db("order").where({ id: order.id }).update({ status: "close" });
+
+  await db("driver")
+    .where({ id: user.id })
+    .update({ balans: +driver.balans - +config.payment.money });
+
+  await db("driver-order")
+    .where({ id: params.id })
+    .update({ paid: true, paid_time: new Date().toISOString() });
 
   return { msg: "Muvvaffaqiyatli yakunladingiz." };
 };

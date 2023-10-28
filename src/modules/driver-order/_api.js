@@ -6,6 +6,9 @@ const {
   getDriverOrder,
   listDriverOrder,
   handoverDriverOrder,
+  allDriverOrder,
+  paidDriverOrder,
+  DriverOrder,
 } = require("./_controller");
 
 const router = require("express").Router();
@@ -29,13 +32,34 @@ const mHandOverDriverOrder = [
   isActive,
   hasRole(["driver"]),
 ];
+const mAllDriverOrder = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
+const mDriverOrder = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
+const mPaidDriverOrder = [
+  admin_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 
-router.post("/driver-order/:id", mGetDriverOrder, getDriverOrder);
+router.get("/driver-order/all", mAllDriverOrder, allDriverOrder);
+router.get("/driver-order/driver/:id", mDriverOrder, DriverOrder);
+router.get("/driver-order/:id", mGetDriverOrder, getDriverOrder);
 router.get("/driver-order", mListDriverOrder, listDriverOrder);
 router.post(
   "/driver-order/handover/:id",
   mHandOverDriverOrder,
   handoverDriverOrder
 );
+router.patch("/driver-order/paid/:id", mPaidDriverOrder, paidDriverOrder);
 
 module.exports = router;

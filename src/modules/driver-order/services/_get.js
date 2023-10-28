@@ -1,5 +1,9 @@
 const db = require("../../../db");
-const { NotFoundError, ForbiddenError } = require("../../../shared/errors");
+const {
+  NotFoundError,
+  ForbiddenError,
+  BadRequestError,
+} = require("../../../shared/errors");
 
 const get = async ({ params, user }) => {
   const existing = await db("order")
@@ -22,13 +26,22 @@ const get = async ({ params, user }) => {
     }
   });
 
+  const driver_order_orders = await db("driver-order")
+    .where({
+      order_id: existing.id,
+    })
+    .first();
+
+  if (driver_order_orders) {
+    throw new BadRequestError("Zakaz allaqachon band qilingan!");
+  }
+
   await db("order").where({ id: params.id }).update({ status: "progress" });
 
   const driverorder = {
     driver_id: user.id,
     order_id: existing.id,
-    time: new Date().toLocaleDateString(),
-    // time: Date(Date.now()).toString(),
+    time: new Date().toISOString(),
   };
 
   return db("driver-order").insert(driverorder).returning("*");
