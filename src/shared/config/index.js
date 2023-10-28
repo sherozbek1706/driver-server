@@ -14,6 +14,10 @@ const config = {
     secret: process.env.JWT_SECRET,
     expirec_in: process.env.JWT_EXPIRES_IN,
   },
+  payment: {
+    money: process.env.PAYMENT_MONEY,
+    action: process.env.PAYMENT_ACTION,
+  },
 };
 
 module.exports = config;
