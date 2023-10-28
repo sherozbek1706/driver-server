@@ -8,6 +8,7 @@ const {
   openedOrder,
   closedOrder,
   progressOrder,
+  removeOrder,
 } = require("./_controller");
 
 const router = require("express").Router();
@@ -43,11 +44,18 @@ const mProgressOrder = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mRemoveOrder = [
+  driver_img_upload,
+  isLoggedIn,
+  isBlock,
+  hasRole(["admin", "super_admin"]),
+];
 
 router.post("/order", mAddOrder, addOrder);
 router.get("/order", mListOrder, listOrder);
 router.get("/order/open", mOpenedOrder, openedOrder);
 router.get("/order/close", mClosedOrder, closedOrder);
 router.get("/order/progress", mProgressOrder, progressOrder);
+router.delete("/order/:id", mRemoveOrder, removeOrder);
 
 module.exports = router;

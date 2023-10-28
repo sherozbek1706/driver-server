@@ -3,6 +3,7 @@ const list = require("./_list");
 const opened = require("./_opened");
 const closed = require("./_closed");
 const progress = require("./_progress");
+const remove = require("./_remove");
 
 module.exports = {
   add,
@@ -10,4 +11,5 @@ module.exports = {
   opened,
   closed,
   progress,
+  remove,
 };
