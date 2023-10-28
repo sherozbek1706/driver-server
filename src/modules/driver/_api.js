@@ -9,6 +9,9 @@ const {
   offActiveDriver,
   listActiveDriver,
   editDriver,
+  removedListDriver,
+  infoDriver,
+  payDriver,
 } = require("./_controller");
 
 const { hasRole, isLoggedIn } = require("../../shared/auth");
@@ -31,10 +34,15 @@ const mListDriver = [
   hasRole(["admin", "super_admin"]),
   isBlock,
 ];
+const mRemovedListDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  hasRole(["admin", "super_admin"]),
+  isBlock,
+];
 const mShowDriver = [
   driver_img_upload,
   isLoggedIn,
-  isActive,
   hasRole(["admin", "super_admin", "driver"]),
 ];
 const mRemoveDriver = [
@@ -66,6 +74,18 @@ const mListActiveDriver = [
   isBlock,
   hasRole(["admin", "super_admin"]),
 ];
+const mInfoDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  isActive,
+  hasRole(["driver"]),
+];
+const mPayDriver = [
+  driver_img_upload,
+  isLoggedIn,
+  isActive,
+  hasRole(["admin", "super_admin"]),
+];
 const mEditDriver = [
   driver_img_upload,
   isLoggedIn,
@@ -76,7 +96,10 @@ const mEditDriver = [
 router.post("/driver/login", mLoginDriver, loginDriver);
 router.post("/driver/add", mAddDriver, addDriver);
 router.get("/driver", mListDriver, listDriver);
+router.get("/driver/removed", mRemovedListDriver, removedListDriver);
 router.get("/driver/active", mListActiveDriver, listActiveDriver);
+router.get("/driver/info", mInfoDriver, infoDriver);
+router.post("/driver/pay/:id", mPayDriver, payDriver);
 router.get("/driver/:id", mShowDriver, showDriver);
 router.delete("/driver/:id", mRemoveDriver, removeDriver);
 router.delete("/driver/un/:id", mUnemoveDriver, unremoveDriver);

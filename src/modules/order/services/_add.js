@@ -11,7 +11,10 @@ const add = async ({ body, user }) => {
   }
 
   return db("order")
-    .insert({ ...body, admin_id: user.id })
+    .insert({
+      ...body,
+      admin_id: user.id,
+    })
     .returning("*");
 };
 

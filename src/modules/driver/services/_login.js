@@ -6,12 +6,13 @@ const bcryptjs = require("bcryptjs");
 
 const login = async ({ body }) => {
   const { username, password } = body;
-  const existing = await db("driver")
-    .where({ username, is_deleted: false })
-    .first();
+  const existing = await db("driver").where({ username }).first();
 
   if (!existing) {
     throw new NotFoundError("Username xato kiritildi!");
+  }
+  if (existing.is_deleted == true) {
+    throw new ForbiddenError("Ushbu Haydovchi Bloklangan!");
   }
 
   const correct = await bcryptjs.compare(password, existing.password);
@@ -19,10 +20,6 @@ const login = async ({ body }) => {
   if (!correct) {
     throw new ForbiddenError("Parol xato kiritildi!");
   }
-
-  await db("driver")
-    .where({ username, is_deleted: false })
-    .update({ active: true });
 
   const payload = {
     user: {

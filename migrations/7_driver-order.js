@@ -9,15 +9,15 @@ exports.up = function (knex) {
       .integer("driver_id")
       .references("id")
       .inTable("driver")
-      .onDelete("SET NULL")
-      .onUpdate("CASCADE");
+      .onDelete("SET NULL");
     table
       .integer("order_id")
       .references("id")
       .inTable("order")
-      .onDelete("SET NULL")
-      .onUpdate("CASCADE");
+      .onDelete("CASCADE");
     table.timestamp("time").notNullable();
+    table.boolean("paid").defaultTo(false);
+    table.timestamp("paid_time").defaultTo(null);
   });
 };
 

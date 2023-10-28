@@ -1,0 +1,289 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+
+  .container {
+    width: 800px;
+    height: 100%;
+    padding: 20px 40px;
+    margin: 0 auto;
+  }
+
+  .container__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container__content {
+    width: 100%;
+  }
+
+  .contentInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .contentInfo__header {
+    width: 100%;
+    height: 50px;
+    /* border: 1px solid #000; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .contentInfo__header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+  }
+
+  .contentInfo__day {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .contentInfo__day h2 {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 20px 0;
+  }
+
+  .contentInfo__table {
+    width: 100%;
+    border: 1px solid black;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .contentInfo__table h3 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    height: 100%;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .contentInfo__table .contentInfoTable__id {
+    width: 13%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+
+  .contentInfo__table .contentInfoTable__orderId {
+    width: 14%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+
+  .contentInfo__table .contentInfoTable__driverId {
+    width: 13%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+
+  .contentInfoTable__createdAt {
+    width: 20%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+
+  .contentInfoTable__paidAt {
+    width: 20%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+
+  .contentInfoTable__status {
+    width: 20%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-transform: uppercase;
+  }
+</style>
+
+<body>
+
+
+  <div class="container">
+    <div class="container__header">
+      <h1>Result of 2023-10-27</h1>
+    </div>
+    <div class="container__content">
+      <div class="contentInfo" id="contentCreated">
+
+      </div>
+      <div class="contentInfo" id="contentPaid">
+
+      </div>
+
+    </div>
+
+    <!-- <script>
+      let base = [];
+      async function fetchData() {
+        const response = await fetch("http://localhost:5000/statistic/daily-paid", {
+          headers: {
+            Authorization:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMCwicm9sZSI6InN1cGVyX2FkbWluIn0sImlhdCI6MTY5ODAzNjMyNywiZXhwIjoxNjk4NjQxMTI3fQ._woPPpXxHy9hVCn4iMxj3xJNpvc6v8ReR3A0Bih4T7Q",
+          },
+        });
+
+        base = response.data.data;
+      }
+
+      fetchData();
+
+      let created = base.created_data.reverse();
+      let contentInfo = document.querySelector("#contentCreated");
+
+      let header = document.createElement("div");
+      header.className = "contentInfo__header";
+      header.innerHTML = "<h2>Yaratilgan Buyurtmalar</h2>";
+      contentInfo.appendChild(header);
+
+      created.forEach((item) => {
+        let day = document.createElement("div");
+        day.className = "contentInfo__day";
+        day.innerHTML = `<h2>${item.day}</h2>`;
+
+        contentInfo.appendChild(day);
+
+        let tableHead = document.createElement("div");
+        tableHead.className = "contentInfo__table";
+        tableHead.innerHTML = `
+  <div class="contentInfo__table">
+    <h3 class="contentInfoTable__id"><b>ID</b></h3>
+    <h3 class="contentInfoTable__orderId"><b>BUYU. ID</b></h3>
+    <h3 class="contentInfoTable__driverId"><b>HAYD. ID</b></h3>
+    <h3 class="contentInfoTable__createdAt"><b>BAJARIL. VAQT</b></h3>
+    <h3 class="contentInfoTable__paidAt"><b>TO'LANGA. VAQT</b></h3>
+    <h3 class="contentInfoTable__status"><b>TO'LANGANMI ?</b></h3>
+  </div>
+  `;
+
+        contentInfo.append(tableHead);
+
+        item.data.forEach((items) => {
+          let table = document.createElement("div");
+          table.className = "contentInfo__table";
+          table.innerHTML = `
+    <h3 class="contentInfoTable__id">#${items.id}</h3>
+    <h3 class="contentInfoTable__orderId">#${items.order_id}</h3>
+    <h3 class="contentInfoTable__driverId">#${items.driver_id ? items.driver_id : "Noma'lum"
+            }</h3>
+    <h3 class="contentInfoTable__createdAt">${items.paid_time ? formatDateTime(items.time) : "Noma'lum"
+            }</h3>
+    <h3 class="contentInfoTable__paidAt">${items.paid_time ? formatDateTime(items.paid_time) : "Noma'lum"
+            }</h3>
+    <h3 class="contentInfoTable__status">${items.paid ? "To'langan" : "To'lanmagan"
+            }</h3>
+  `;
+          contentInfo.appendChild(table);
+        });
+      });
+
+      function formatDateTime(dateTime) {
+        const date = new Date(dateTime);
+        const year = date.getFullYear();
+        const month = addLeadingZero(date.getMonth() + 1);
+        const day = addLeadingZero(date.getDate());
+        const hours = addLeadingZero(date.getHours());
+        const minutes = addLeadingZero(date.getMinutes());
+        const seconds = addLeadingZero(date.getSeconds());
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      }
+
+      // Function to add leading zero to a number if it's a single digit
+      function addLeadingZero(number) {
+        return number < 10 ? "0" + number : number;
+      }
+
+      //
+      //*********** */
+      //*********** */
+      //*********** */
+      //*********** */
+      //*********** */
+      //
+
+      let paidData = base.paid_data.reverse();
+      let contentPaid = document.querySelector("#contentPaid");
+
+      let headerPaid = document.createElement("div");
+      headerPaid.className = "contentInfo__header";
+      headerPaid.innerHTML = "<h2>To'langan Buyurtmalar</h2>";
+      contentPaid.appendChild(headerPaid);
+
+      paidData.forEach((item) => {
+        let day = document.createElement("div");
+        day.className = "contentInfo__day";
+        day.innerHTML = `<h2>${item.day}</h2>`;
+
+        contentPaid.appendChild(day);
+
+        let tableHead = document.createElement("div");
+        tableHead.className = "contentInfo__table";
+        tableHead.innerHTML = `
+  <div class="contentInfo__table">
+    <h3 class="contentInfoTable__id"><b>ID</b></h3>
+    <h3 class="contentInfoTable__orderId"><b>BUYU. ID</b></h3>
+    <h3 class="contentInfoTable__driverId"><b>HAYD. ID</b></h3>
+    <h3 class="contentInfoTable__createdAt"><b>BAJARIL. VAQT</b></h3>
+    <h3 class="contentInfoTable__paidAt"><b>TO'LANGA. VAQT</b></h3>
+    <h3 class="contentInfoTable__status"><b>TO'LANGANMI ?</b></h3>
+  </div>
+  `;
+
+        contentPaid.append(tableHead);
+
+        item.data.forEach((items) => {
+          let table = document.createElement("div");
+          table.className = "contentInfo__table";
+          table.innerHTML = `
+    <h3 class="contentInfoTable__id">#${items.id}</h3>
+    <h3 class="contentInfoTable__orderId">#${items.order_id}</h3>
+    <h3 class="contentInfoTable__driverId">#${items.driver_id ? items.driver_id : "Noma'lum"
+            }</h3>
+    <h3 class="contentInfoTable__createdAt">${items.paid_time ? formatDateTime(items.time) : "Noma'lum"
+            }</h3>
+    <h3 class="contentInfoTable__paidAt">${items.paid_time ? formatDateTime(items.paid_time) : "Noma'lum"
+            }</h3>
+    <h3 class="contentInfoTable__status">${items.paid ? "To'langan" : "To'lanmagan"
+            }</h3>
+  `;
+          contentPaid.appendChild(table);
+        });
+      });
+
+    </script> -->
+</body>
+
+</html> -->

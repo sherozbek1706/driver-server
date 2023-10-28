@@ -16,14 +16,12 @@ exports.up = function (knex) {
       .integer("admin_id")
       .references("id")
       .inTable("admin")
-      .onDelete("CASCADE")
-      .notNullable();
+      .onDelete("SET NULL")
     table
       .integer("car_id")
       .references("id")
       .inTable("car")
       .onDelete("CASCADE")
-      .notNullable();
     table.string("username", 64).notNullable().unique();
     table.string("password").notNullable();
     table.boolean("is_deleted").defaultTo(false);

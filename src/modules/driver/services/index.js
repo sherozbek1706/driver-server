@@ -8,6 +8,9 @@ const onActive = require("./_on-active");
 const offActive = require("./_off-active");
 const listActive = require("./_list-active");
 const edit = require("./_edit");
+const removedList = require("./_removed-list");
+const info = require("./_info");
+const pay = require("./_pay");
 
 module.exports = {
   add,
@@ -20,4 +23,7 @@ module.exports = {
   offActive,
   listActive,
   edit,
+  removedList,
+  info,
+  pay,
 };

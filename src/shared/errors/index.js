@@ -38,9 +38,20 @@ class ForbiddenError extends Error {
   }
 }
 
+class PaymentRequiredError extends Error {
+  constructor(msg) {
+    super(msg);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, PaymentRequiredError);
+    }
+  }
+}
+
 module.exports = {
   BadRequestError,
   NotFoundError,
   UnauthorizedError,
   ForbiddenError,
+  PaymentRequiredError,
 };

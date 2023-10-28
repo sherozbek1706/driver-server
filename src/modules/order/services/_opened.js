@@ -1,6 +1,29 @@
 const db = require("../../../db");
+const {
+  ForbiddenError,
+  PaymentRequiredError,
+} = require("../../../shared/errors");
 
-const opened = async () => {
+const opened = async ({ user }) => {
+  const driver_order = await db("driver-order").where({ driver_id: user.id });
+  const orders = await db("order");
+  const driver = await db("driver").where({ id: user.id }).first();
+
+  driver_order.map((order) => {
+    const found = orders.find((o) => {
+      return o.id == order.order_id && o.status == "progress";
+    });
+    if (found) {
+      throw new ForbiddenError("Hozirda sizda tugallanmagan zakaz mavjud.");
+    }
+  });
+
+  if (user.role == "driver") {
+    if (driver.balans < 5000) {
+      throw new PaymentRequiredError("Mablag' yetarli emas!");
+    }
+  }
+
   return db("order")
     .where({ status: "open" })
     .leftJoin("admin", "order.admin_id", "admin.id")

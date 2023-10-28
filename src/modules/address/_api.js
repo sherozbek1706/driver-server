@@ -8,6 +8,7 @@ const {
 const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { admin_img_upload } = require("../../shared/upload");
 const { isBlock } = require("../admin/middleware");
+const { isActive } = require("../driver/middleware");
 
 const router = require("express").Router();
 
@@ -21,7 +22,8 @@ const mListAddress = [
   admin_img_upload,
   isLoggedIn,
   isBlock,
-  hasRole(["admin", "super_admin"]),
+  isActive,
+  hasRole(["admin", "super_admin","driver"]),
 ];
 const mRemoveAddress = [
   admin_img_upload,
