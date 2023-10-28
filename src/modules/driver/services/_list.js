@@ -1,6 +1,8 @@
 const db = require("../../../db");
 
 const list = async () => {
-  return db("driver").where({ is_deleted: false });
+  return (await db("driver").where({ is_deleted: false })).sort(
+    (a, b) => b.id - a.id
+  );
 };
 module.exports = list;
