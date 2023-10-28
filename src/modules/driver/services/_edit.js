@@ -50,13 +50,25 @@ const edit = async ({ params, user, body, image }) => {
     if (!existed) {
       throw new NotFoundError("Moshina topilmadi!");
     }
+    let hashed_psw = existing.password;
+    if (password) {
+      hashed_psw = await bcryptjs.hash(password, 10);
+    }
 
-    let hashed_psw = await bcryptjs.hash(password, 10);
-    driver = { ...driver, car_id, password: hashed_psw };
+    driver = {
+      ...driver,
+      car_id,
+      password: hashed_psw,
+      image: image || existing.image,
+    };
     return db("driver").where({ id: params.id }).update(driver).returning("*");
   }
 
-  driver = { ...driver, password: existing.password };
+  driver = {
+    ...driver,
+    password: existing.password,
+    image: image || existing.image,
+  };
   return db("driver").where({ id: params.id }).update(driver).returning("*");
 };
 
