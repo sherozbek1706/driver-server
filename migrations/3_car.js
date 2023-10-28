@@ -9,12 +9,12 @@ exports.up = function (knex) {
       .integer("region_id")
       .references("id")
       .inTable("car_region")
-      .onDelete("CASCADE");
+      .onDelete("SET NULL");
     table
       .integer("model_id")
       .references("id")
       .inTable("car_model")
-      .onDelete("CASCADE");
+      .onDelete("SET NULL");
     table.string("number").notNullable().unique();
     table.integer("year").notNullable();
     table.string("color").notNullable();
