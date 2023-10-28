@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema.alterTable("driver", (table) => {
-    table.bigInteger("balans").defaultTo(10000);
+    table.float("balans").defaultTo(10000);
   });
 };
 
