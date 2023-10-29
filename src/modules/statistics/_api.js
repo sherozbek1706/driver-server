@@ -8,6 +8,7 @@ const {
   dailyPaidStatistic,
   newDriversStatistic,
   dailyWorkStatistic,
+  dailyPaymentStatistic,
 } = require("./_controller");
 
 const router = require("express").Router();
@@ -44,11 +45,18 @@ const mDailyWork = [
   isActive,
   hasRole(["driver"]),
 ];
+const mDailyPayment = [
+  driver_img_upload,
+  isLoggedIn,
+  isActive,
+  hasRole(["admin", "super_admin"]),
+];
 
 router.get("/statistic/top-driver", mTopDriver, topDriverStatistic);
 router.get("/statistic/daily-order", mDailyOrder, dailyOrderStatistic);
 router.get("/statistic/daily-paid", mDailyPaid, dailyPaidStatistic);
 router.get("/statistic/daily-work", mDailyWork, dailyWorkStatistic);
 router.get("/statistic/new-drivers", mNewDrivers, newDriversStatistic);
+router.get("/statistic/daily-payments", mDailyPayment, dailyPaymentStatistic);
 
 module.exports = router;
