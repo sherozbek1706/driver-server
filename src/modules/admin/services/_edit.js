@@ -42,7 +42,7 @@ const edit = async ({ params, user, role, body, image }) => {
     throw new BadRequestError("Telefon raqam oldin ro'yxatdan o'tgan!");
   }
 
-  admin = { username, phone_number, ...data, image };
+  admin = { username, phone_number, ...data, image: image || existing.image };
 
   if (role == "super_admin") {
     let hashed_psw = await bcryptjs.hash(password, 10);
