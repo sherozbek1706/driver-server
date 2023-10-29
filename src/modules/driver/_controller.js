@@ -130,7 +130,11 @@ const removeDriver = async (req, res, next) => {
  */
 const payDriver = async (req, res, next) => {
   try {
-    const result = await pay({ params: req.params, body: req.body });
+    const result = await pay({
+      user: req.user,
+      params: req.params,
+      body: req.body,
+    });
     res.status(200).json({ data: result });
   } catch (error) {
     next(error);
