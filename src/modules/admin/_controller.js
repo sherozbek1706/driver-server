@@ -9,6 +9,7 @@ const {
   edit,
   off_active,
   list_active,
+  list_blocked,
 } = require("./services");
 
 /**
@@ -132,7 +133,7 @@ const editAdmin = async (req, res, next) => {
         user: req.user,
         role: req.user.role,
         body: req.body,
-        image: `/files/admin/${req.file.filename}`,
+        image: req.file ? `/files/admin/${req.file.filename}` : null,
       });
     } else {
       result = await edit({
@@ -140,7 +141,7 @@ const editAdmin = async (req, res, next) => {
         user: req.user,
         role: req.user.role,
         body: req.body,
-        image: `/files/admin/${req.file.filename}`,
+        image: req.file ? `/files/admin/${req.file.filename}` : null,
       });
     }
     res.status(200).json({ data: result });
@@ -192,6 +193,21 @@ const listActiveAdmin = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const listBlockedAdmin = async (req, res, next) => {
+  try {
+    const result = await list_blocked();
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginAdmin,
   addAdmin,
@@ -202,4 +218,5 @@ module.exports = {
   editAdmin,
   offActiveAdmin,
   listActiveAdmin,
+  listBlockedAdmin,
 };
