@@ -5,6 +5,7 @@ const {
   dailyPaid,
   newDrivers,
   dailyWork,
+  dailyPayment,
 } = require("./services");
 
 /**
@@ -82,10 +83,26 @@ const newDriversStatistic = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const dailyPaymentStatistic = async (req, res, next) => {
+  try {
+    const result = await dailyPayment();
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   topDriverStatistic,
   dailyOrderStatistic,
   dailyPaidStatistic,
   newDriversStatistic,
   dailyWorkStatistic,
+  dailyPaymentStatistic,
 };
