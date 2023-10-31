@@ -27,13 +27,15 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3000",
-      "http://127.0.0.1:5500",
+      "https://sherozbek.uz",
+      "https://api.sherozbek.uz",
       `http://${ip.address()}:3000`,
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   },
 });
 
+// app.use(cors({ origin: ["https://sherozbek.uz", "http://localhost:3000"] }));
 app.use(cors());
 
 // import router
