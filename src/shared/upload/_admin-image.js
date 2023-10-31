@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, "../../public/admin"),
+  destination: path.join(__dirname, "../../../../public/admin"),
   filename: (req, file, cb) => {
     const customeFileName = `${Date.now()}` + path.extname(file.originalname);
     cb(null, customeFileName);
