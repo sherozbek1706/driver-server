@@ -49,6 +49,7 @@ const order_route = require("../modules/order/_api");
 const driverorder_route = require("../modules/driver-order/_api");
 const statistic_route = require("../modules/statistics/_api");
 const payments_route = require("../modules/payments/_api");
+const users_route = require("../modules/users/_api");
 
 // registered router
 app.use(admin_route);
@@ -61,6 +62,7 @@ app.use(order_route);
 app.use(driverorder_route);
 app.use(statistic_route);
 app.use(payments_route);
+app.use(users_route);
 
 // app.post("/create-pdf", async (req, res) => {
 //   pdf
