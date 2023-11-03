@@ -17,3 +17,22 @@ const checkCodeUser = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const registerUser = async (req, res, next) => {
+  try {
+    const result = await register({
+      body: req.body,
+      image: `/files/users/${req.file.filename}`,
+    });
+    res.status(201).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { checkCodeUser, registerUser, loginUser };
