@@ -1,6 +1,20 @@
 const express = require("express");
-const { checkCode, register, login } = require("./services");
+const { checkCode, register, login, show } = require("./services");
 
+// /**
+//  *
+//  * @param {express.Request} req
+//  * @param {express.Response} res
+//  * @param {express.NextFunction} next
+//  */
+// const registerUser = async (req, res, next) => {
+//   try {
+//     const result = "";
+//     res.status(201).
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 /**
  *
@@ -50,4 +64,19 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-module.exports = { checkCodeUser, registerUser, loginUser };
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const showUser = async (req, res, next) => {
+  try {
+    const result = await show({ user: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { checkCodeUser, registerUser, loginUser, showUser };
