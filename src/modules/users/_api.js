@@ -16,5 +16,4 @@ router.post("/users/check-code", checkCodeUser);
 router.post("/users/register", mRegisterUser, registerUser);
 router.post("/users/login", mLoginUser, loginUser);
 router.get("/users/show/me", mShowUser, showUser);
-
 module.exports = router;
