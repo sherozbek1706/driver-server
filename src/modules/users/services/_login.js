@@ -19,7 +19,7 @@ module.exports = async ({ body }) => {
   }
 
   let token = jwt.sign(
-    { user: { id: existing.id, role: "client" } },
+    { user: { id: existing.id, role: "user" } },
     config.jwt.secret,
     { expiresIn: config.jwt.expirec_in }
   );

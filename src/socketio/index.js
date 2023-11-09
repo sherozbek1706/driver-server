@@ -18,7 +18,7 @@ app.use(express.json());
 const pdfTemplate = require("../documents");
 
 // public file static
-app.use("/files", express.static(path.join(__dirname, "../public")));
+app.use("/files", express.static(path.join(__dirname, "../../../public")));
 
 // import handleError
 const handleError = require("../shared/errors/handle");
