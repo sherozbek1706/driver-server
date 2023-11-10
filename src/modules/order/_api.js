@@ -2,6 +2,7 @@ const { hasRole, isLoggedIn } = require("../../shared/auth");
 const { driver_img_upload } = require("../../shared/upload");
 const { isActive } = require("../driver/middleware");
 const { isBlock } = require("../admin/middleware");
+const checkUser = require("../users/middleware/check-user")
 const {
   addOrder,
   listOrder,
@@ -17,7 +18,8 @@ const mAddOrder = [
   driver_img_upload,
   isLoggedIn,
   isBlock,
-  hasRole(["admin", "super_admin"]),
+  checkUser,
+  hasRole(["admin", "super_admin", "user"]),
 ];
 const mListOrder = [
   driver_img_upload,
