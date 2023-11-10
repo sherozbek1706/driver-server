@@ -23,7 +23,7 @@ const mListAddress = [
   isLoggedIn,
   isBlock,
   isActive,
-  hasRole(["admin", "super_admin","driver"]),
+  hasRole(["admin", "super_admin","driver","user"]),
 ];
 const mRemoveAddress = [
   admin_img_upload,
