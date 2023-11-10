@@ -1,5 +1,5 @@
 const express = require("express");
-const { checkCode, register, login, show } = require("./services");
+const { checkCode, register, login, show, checkMe, myorder } = require("./services");
 
 // /**
 //  *
@@ -79,4 +79,36 @@ const showUser = async (req, res, next) => {
   }
 };
 
-module.exports = { checkCodeUser, registerUser, loginUser, showUser };
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const checkMeUser = async (req, res, next) => {
+  try {
+    const result = await checkMe({ user: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const myorderUser = async (req, res, next) => {
+  try {
+    const result = await myorder({ user: req.user, params: req.params });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { checkCodeUser, registerUser, loginUser, showUser, checkMeUser,myorderUser };
