@@ -3,7 +3,6 @@ const { NotFoundError } = require("../../../shared/errors");
 
 const add = async ({ body, user }) => {
   const { address_id } = body;
-  console.log(body);
   const existed = await db("address").where({ id: address_id }).first();
 
   if (!existed) {
