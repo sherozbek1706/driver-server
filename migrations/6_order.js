@@ -19,7 +19,7 @@ exports.up = function (knex) {
       .inTable("admin")
       .onDelete("SET NULL")
       .onUpdate("CASCADE");
-    table.enu("status", ["open", "close", "progress"]).defaultTo("open");
+    table.enu("status", ["open", "close", "progress","wait","restart"]).defaultTo("open");
     table.string("district").notNullable();
   });
 };
