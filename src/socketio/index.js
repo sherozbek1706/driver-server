@@ -27,9 +27,11 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3000",
+      "http://localhost:3001",
       "https://sherozbek.uz",
       "https://api.sherozbek.uz",
       `http://${ip.address()}:3000`,
+      `http://${ip.address()}:3001`,
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   },
@@ -84,25 +86,33 @@ app.use(users_route);
 app.use(handleError);
 
 io.on("connection", (socket) => {
-  socket.on("add_order", async (data) => {
-    socket.broadcast.emit("get_new_orders", { msg: "go" });
+  socket.on("buyurtma_qushish", async (data) => {
+    socket.broadcast.emit("yangi_buyurtmani_olish", { msg: "go" });
   });
 
-  socket.on("accept_order", async (data) => {
-    socket.broadcast.emit("get_action_order_driver", { msg: "go" });
+  socket.on("buyurtmani_qabul_qilish", async (data) => {
+    socket.broadcast.emit("buyurtma_qabul_qilindi", { msg: "go" });
   });
 
-  socket.on("handover_order_driver", async (data) => {
-    socket.broadcast.emit("get_action_order_driver", { msg: "go" });
+  socket.on("buyurtma_bajarildi", async (data) => {
+    console.log(data);
+    socket.broadcast.emit("buyurtma_tuliq_bajarildi", data);
   });
 
-  socket.on("handover_order", async (data) => {
-    socket.broadcast.emit("get_action_order", { msg: "go" });
+  // socket.on("handover_order", async (data) => {
+  //   socket.broadcast.emit("get_action_order", { msg: "go" });
+  // });
+
+  socket.on("hayvochini_activligini_almashtirish", async (data) => {
+    socket.broadcast.emit("haydovchini_aktivligi_almashtirilsin", { msg: "go" });
   });
 
-  socket.on("change_activity_driver", async (data) => {
-    socket.broadcast.emit("get_action_driver", { msg: "go" });
-  });
+  socket.on("manzilga_yetib_keldim", async (data) => {
+    socket.broadcast.emit("haydovchi_manzilga_yetib_kelibdi", { msg: "go" });
+  })
+  socket.on("yulovchi_bilan_yulga_chiqdik", async (data) => {
+    socket.broadcast.emit("haydovchi_yulovchi_bilan_yulga_chiqdi", { msg: "go" });
+  })
 });
 
 module.exports = {
