@@ -30,6 +30,7 @@ const io = new Server(server, {
       "http://localhost:3001",
       "https://sherozbek.uz",
       "https://api.sherozbek.uz",
+      "https://haydovchi.sherozbek.uz",
       `http://${ip.address()}:3000`,
       `http://${ip.address()}:3001`,
     ],
