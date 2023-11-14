@@ -2,11 +2,10 @@ const db = require("../../../db");
 const config = require("../../../shared/config");
 const {
   NotFoundError,
-  ForbiddenError,
   BadRequestError,
 } = require("../../../shared/errors");
 
-const handover = async ({ params, user }) => {
+const handrestart = async ({ params, user }) => {
   const existing = await db("driver-order")
     .where({ id: params.id, driver_id: user.id })
     .first();
@@ -27,19 +26,9 @@ const handover = async ({ params, user }) => {
     throw new BadRequestError("Siz allaqachon bu zakazni bajarib bo'lgangiz.");
   }
 
-  await db("order").where({ id: order.id }).update({ status: "close" });
+  await db("order").where({ id: order.id }).update({ status: "restart" });
 
-  await db("driver")
-    .where({ id: user.id })
-    .update({ balans: +driver.balans - +config.payment.money });
-
-  await db("driver-order")
-    .where({ id: params.id })
-    .update({ paid: true, paid_time: new Date().toISOString() });
-
-  return db("driver-order")
-  .where({ id: params.id })
-  .update({ paid: true, paid_time: new Date().toISOString() }).returning("*");
+  return { msg: "Siz yo'lga chiqdingiz!" };
 };
 
-module.exports = handover;
+module.exports = handrestart;

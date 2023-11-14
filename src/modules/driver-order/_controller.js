@@ -1,5 +1,5 @@
 const express = require("express");
-const { get, list, handover, all, paid, driverorder } = require("./services");
+const { get, list, handover, all, paid, driverorder, handwait, handrestart } = require("./services");
 
 /**
  *
@@ -9,7 +9,7 @@ const { get, list, handover, all, paid, driverorder } = require("./services");
  */
 const getDriverOrder = async (req, res, next) => {
   try {
-    const result = await get({ params: req.params, user: req.user });
+    const result = await get({ params: req.params, user: req.user, body: req.body });
     res.status(201).json({ data: result });
   } catch (error) {
     next(error);
@@ -67,6 +67,39 @@ const handoverDriverOrder = async (req, res, next) => {
  * @param {express.Response} res
  * @param {express.NextFunction} next
  */
+const handwaitDriverOrder = async (req, res, next) => {
+  try {
+    const result = await handwait({ params: req.params, user: req.user });
+    res.status(201).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+const handrestartDriverOrder = async (req, res, next) => {
+  try {
+    const result = await handrestart({ params: req.params, user: req.user });
+    res.status(201).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
 const allDriverOrder = async (req, res, next) => {
   try {
     const result = await all();
@@ -98,4 +131,5 @@ module.exports = {
   allDriverOrder,
   paidDriverOrder,
   DriverOrder,
+  handwaitDriverOrder, handrestartDriverOrder
 };

@@ -5,7 +5,7 @@ const {
   BadRequestError,
 } = require("../../../shared/errors");
 
-const get = async ({ params, user }) => {
+const get = async ({ params, user, body }) => {
   const existing = await db("order")
     .where({ id: params.id, status: "open" })
     .first();
@@ -42,6 +42,7 @@ const get = async ({ params, user }) => {
     driver_id: user.id,
     order_id: existing.id,
     time: new Date().toISOString(),
+    delay_time: body.time
   };
 
   return db("driver-order").insert(driverorder).returning("*");
