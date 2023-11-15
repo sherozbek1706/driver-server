@@ -96,7 +96,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("buyurtma_bajarildi", async (data) => {
-    console.log(data);
     socket.broadcast.emit("buyurtma_tuliq_bajarildi", data);
   });
 
