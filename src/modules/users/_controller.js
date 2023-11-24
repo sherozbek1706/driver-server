@@ -1,5 +1,13 @@
 const express = require("express");
-const { checkCode, register, login, show, checkMe, myorder } = require("./services");
+const {
+  checkCode,
+  register,
+  login,
+  show,
+  checkMe,
+  myorder,
+  history,
+} = require("./services");
 
 // /**
 //  *
@@ -70,6 +78,21 @@ const loginUser = async (req, res, next) => {
  * @param {express.Response} res
  * @param {express.NextFunction} next
  */
+const historyUser = async (req, res, next) => {
+  try {
+    const result = await history({ user: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
 const showUser = async (req, res, next) => {
   try {
     const result = await show({ user: req.user });
@@ -78,7 +101,6 @@ const showUser = async (req, res, next) => {
     next(error);
   }
 };
-
 
 /**
  *
@@ -95,7 +117,6 @@ const checkMeUser = async (req, res, next) => {
   }
 };
 
-
 /**
  *
  * @param {express.Request} req
@@ -111,4 +132,12 @@ const myorderUser = async (req, res, next) => {
   }
 };
 
-module.exports = { checkCodeUser, registerUser, loginUser, showUser, checkMeUser,myorderUser };
+module.exports = {
+  checkCodeUser,
+  registerUser,
+  loginUser,
+  showUser,
+  checkMeUser,
+  myorderUser,
+  historyUser,
+};
