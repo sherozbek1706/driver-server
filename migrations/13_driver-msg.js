@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("driver-msg", (table) => {
     table.increments("id").primary();
-    table.string("msg").notNullable();
+    table.string("message").notNullable();
     table
       .integer("driver_id")
       .references("id")
