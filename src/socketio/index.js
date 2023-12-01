@@ -53,6 +53,7 @@ const driverorder_route = require("../modules/driver-order/_api");
 const statistic_route = require("../modules/statistics/_api");
 const payments_route = require("../modules/payments/_api");
 const users_route = require("../modules/users/_api");
+const driver_chat = require("../modules/driver-chat/_api");
 
 // registered router
 app.use(admin_route);
@@ -66,6 +67,7 @@ app.use(driverorder_route);
 app.use(statistic_route);
 app.use(payments_route);
 app.use(users_route);
+app.use(driver_chat);
 
 // app.post("/create-pdf", async (req, res) => {
 //   pdf
@@ -104,15 +106,19 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("hayvochini_activligini_almashtirish", async (data) => {
-    socket.broadcast.emit("haydovchini_aktivligi_almashtirilsin", { msg: "go" });
+    socket.broadcast.emit("haydovchini_aktivligi_almashtirilsin", {
+      msg: "go",
+    });
   });
 
   socket.on("manzilga_yetib_keldim", async (data) => {
     socket.broadcast.emit("haydovchi_manzilga_yetib_kelibdi", { msg: "go" });
-  })
+  });
   socket.on("yulovchi_bilan_yulga_chiqdik", async (data) => {
-    socket.broadcast.emit("haydovchi_yulovchi_bilan_yulga_chiqdi", { msg: "go" });
-  })
+    socket.broadcast.emit("haydovchi_yulovchi_bilan_yulga_chiqdi", {
+      msg: "go",
+    });
+  });
 });
 
 module.exports = {
