@@ -119,6 +119,13 @@ io.on("connection", (socket) => {
       msg: "go",
     });
   });
+
+  socket.on("haydovchi_yangi_habar_yozdi", async (data) => {
+    console.log("Ishladi");
+    socket.broadcast.emit("haydovchi_yangi_habar_yozdi_uqish_kerak", {
+      msg: "go",
+    });
+  });
 });
 
 module.exports = {

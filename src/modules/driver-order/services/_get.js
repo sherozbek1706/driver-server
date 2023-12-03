@@ -6,6 +6,8 @@ const {
 } = require("../../../shared/errors");
 
 const get = async ({ params, user, body }) => {
+  const driver = await db("driver").where({ id: user.id }).first();
+
   const existing = await db("order")
     .where({ id: params.id, status: "open" })
     .first();
@@ -42,8 +44,13 @@ const get = async ({ params, user, body }) => {
     driver_id: user.id,
     order_id: existing.id,
     time: new Date().toISOString(),
-    delay_time: body.time
+    delay_time: body.time,
   };
+
+  await db("driver-msg").insert({
+    type: "notification",
+    message: `@${driver.username} yangi buyurtmani qabul qildi.`,
+  });
 
   return db("driver-order").insert(driverorder).returning("*");
 };
