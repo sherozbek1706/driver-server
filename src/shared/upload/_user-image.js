@@ -11,16 +11,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  fileFilter: (req, file, cb) => {
-    const allowedExtensions = [".jpg", ".jpeg", ".png"];
-    const fileExtension = path.extname(file.originalname);
+  // fileFilter: (req, file, cb) => {
+  //   const allowedExtensions = [".jpg", ".jpeg", ".png"];
+  //   const fileExtension = path.extname(file.originalname);
 
-    if (allowedExtensions.includes(fileExtension)) {
-      cb(null, true);
-    } else {
-      cb(new Error("Invalid file type"));
-    }
-  },
+  //   if (allowedExtensions.includes(fileExtension)) {
+  //     cb(null, true);
+  //   } else {
+  //     cb(new Error("Invalid file type"));
+  //   }
+  // },
   limits: {
     files: 1,
     fileSize: 20 * 1024 * 1024,
