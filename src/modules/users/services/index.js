@@ -5,6 +5,7 @@ const show = require("./_show");
 const checkMe = require("./_check-me");
 const myorder = require("./_my-order");
 const history = require("./_history");
+const cancel_order = require("./_cancel-order");
 module.exports = {
   checkCode,
   register,
@@ -13,4 +14,5 @@ module.exports = {
   checkMe,
   myorder,
   history,
+  cancel_order,
 };

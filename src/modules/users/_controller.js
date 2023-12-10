@@ -7,6 +7,7 @@ const {
   checkMe,
   myorder,
   history,
+  cancel_order,
 } = require("./services");
 
 // /**
@@ -108,6 +109,21 @@ const showUser = async (req, res, next) => {
  * @param {express.Response} res
  * @param {express.NextFunction} next
  */
+const cancelOrderUser = async (req, res, next) => {
+  try {
+    const result = await cancel_order({ user: req.user });
+    res.status(200).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
 const checkMeUser = async (req, res, next) => {
   try {
     const result = await checkMe({ user: req.user });
@@ -140,4 +156,5 @@ module.exports = {
   checkMeUser,
   myorderUser,
   historyUser,
+  cancelOrderUser,
 };
