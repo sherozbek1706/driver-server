@@ -93,6 +93,10 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("yangi_buyurtmani_olish", { msg: "go" });
   });
 
+  socket.on("buyurtma_uchirish", async (data) => {
+    socket.broadcast.emit("yangi_buyurtmani_olish", { msg: "go" });
+  });
+
   socket.on("buyurtmani_qabul_qilish", async (data) => {
     socket.broadcast.emit("buyurtma_qabul_qilindi", { msg: "go" });
   });
@@ -100,10 +104,6 @@ io.on("connection", (socket) => {
   socket.on("buyurtma_bajarildi", async (data) => {
     socket.broadcast.emit("buyurtma_tuliq_bajarildi", data);
   });
-
-  // socket.on("handover_order", async (data) => {
-  //   socket.broadcast.emit("get_action_order", { msg: "go" });
-  // });
 
   socket.on("hayvochini_activligini_almashtirish", async (data) => {
     socket.broadcast.emit("haydovchini_aktivligi_almashtirilsin", {
